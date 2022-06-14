@@ -68,9 +68,9 @@ const renderPage = () => html`
 `;
 
 export const homeView = (ctx) => {
-    fetch('http://localhost:3030/data/movies')
-    .then((data) => data.json())
-    .then((res) => console.log(res))
+    // fetch('http://localhost:3030/data/movies')
+    // .then((data) => data.json())
+    // .then((res) => console.log(res))
     ctx.renderMiddleware(renderPage())
 }
 

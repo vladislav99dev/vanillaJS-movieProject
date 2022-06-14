@@ -1,4 +1,11 @@
 export const isUserLoggedIn = () => {
-    let user = localStorage.getItem('user')
-    return Boolean(user)
+    let email = localStorage.getItem('email')
+    return email
+}
+
+export const saveUserData = (email,username,_id,accessToken) => {
+    localStorage.setItem("email", email)
+    localStorage.setItem("username", username)
+    localStorage.setItem("_id", _id)
+    localStorage.setItem("accessToken", accessToken)
 }
