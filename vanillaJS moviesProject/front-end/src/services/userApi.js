@@ -1,8 +1,8 @@
 let baseUrl = "http://localhost:3030";
 
-export const sendUserData = async (email, password) => {
+export const sendUserData = async ({email, password,url}) => {
     try{
-        let response = await fetch(`${baseUrl}/users/login`, {
+        let response = await fetch(`${baseUrl}${url}`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

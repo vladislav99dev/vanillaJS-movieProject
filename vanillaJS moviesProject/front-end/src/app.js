@@ -8,6 +8,7 @@ import { detailsView } from "./views/detailsView.js";
 import { editView } from "./views/editView.js"
 import { authMiddleware } from "./middleware/authMiddleware.js";
 
+
 page(authMiddleware);
 page(renderMiddleware);
 page("/", homeView);
@@ -19,3 +20,5 @@ page("/edit/:movieId", editView)
 // page('/logout', logoutview)
 
 page.start();
+
+
