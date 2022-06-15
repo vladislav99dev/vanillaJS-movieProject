@@ -12,6 +12,7 @@ const renderPage = (ctx,template) => html`
   <footer>${footer()}</footer>
 `;
 
+
 export const renderMiddleware = (ctx, next) => {
   ctx.renderMiddleware = (template) => {
     return render(renderPage(ctx,template), root);
