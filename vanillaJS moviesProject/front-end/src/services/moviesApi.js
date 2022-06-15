@@ -18,11 +18,11 @@ export const getMovies = async (url, movieId) => {
     return jsonResponse;
 };
 
-export const updateMovie = async({title,description,imageUrl},url,currMovieData) => {
+export const updateMovie = async ({ title, description, imageUrl }, url, currMovieData) => {
     let response = await fetch(`${baseUrl}${url}${currMovieData._id}`, {
         method: "PUT",
         headers: {
-            'content-type':'application/json',
+            'content-type': 'application/json',
             'X-Authorization': getToken()
         },
         body: JSON.stringify({
@@ -31,7 +31,7 @@ export const updateMovie = async({title,description,imageUrl},url,currMovieData)
             img: imageUrl
         })
     })
-    if(response.ok) {
+    if (response.ok) {
         let jsonResponse = await response.json();
         return jsonResponse;
     } else {
@@ -39,11 +39,31 @@ export const updateMovie = async({title,description,imageUrl},url,currMovieData)
     }
 }
 
-export const deleteMovie = (movieId,url) => {
+export const deleteMovie = (movieId, url) => {
     fetch(`${baseUrl}${url}${movieId}`, {
-        method:"DELETE",
+        method: "DELETE",
         headers: {
             'X-Authorization': getToken()
         },
     })
+}
+export const createMovie = async (title, description, imageUrl, url) => {
+
+    let response = await fetch(`${baseUrl}${url}`, {
+        method: "POST",
+        headers: {
+            'content-type': 'application/json',
+            'X-Authorization': getToken()
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            img: imageUrl
+        })
+    })
+    let jsonResponse = await response.json();
+    if(jsonResponse.message) {
+        alert(jsonResponse.message)
+    }
+
 }
