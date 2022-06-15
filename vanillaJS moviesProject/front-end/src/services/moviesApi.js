@@ -31,6 +31,19 @@ export const updateMovie = async({title,description,imageUrl},url,currMovieData)
             img: imageUrl
         })
     })
-    let jsonResponse = await response.json();
-    return jsonResponse;
+    if(response.ok) {
+        let jsonResponse = await response.json();
+        return jsonResponse;
+    } else {
+        alert('Something went wrong :( \n Please try again later.')
+    }
+}
+
+export const deleteMovie = (movieId,url) => {
+    fetch(`${baseUrl}${url}${movieId}`, {
+        method:"DELETE",
+        headers: {
+            'X-Authorization': getToken()
+        },
+    })
 }

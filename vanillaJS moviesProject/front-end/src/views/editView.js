@@ -1,7 +1,6 @@
 import { html } from "../../node_modules/lit-html/lit-html.js"
 import { getMovies, updateMovie } from "../services/moviesApi.js";
-import { getUserId } from "../services/auth.js";
-import page from "../../node_modules/page/page.mjs"
+
 const renderPage = (ctx) => html`
 <section id="edit-movie">
     <form class="text-center border border-light p-5" action="#" method="">
@@ -21,33 +20,29 @@ const renderPage = (ctx) => html`
             <input id="imageUrl" type="text" class="form-control" placeholder="Image Url"
                 value="${ctx.currMovieData.img}" name="imageUrl">
         </div>
-        <button type="submit" class="btn btn-primary" @click="${ctx.addMovieHandler}">Submit</button>
+        <button type="submit" class="btn btn-primary" @click="${ctx.editMovieHandler}">Submit</button>
     </form>
 </section>
 `;
 let url = '/data/movies/'
+
+
 export const editView = async (ctx) => {
     let currMovieData = await getMovies(url, ctx.params.movieId)
-    ctx.currMovieData = currMovieData;
-    ctx.addMovieHandler = addMovieHandler.bind(null, currMovieData)
 
+    ctx.currMovieData = currMovieData;
+    ctx.editMovieHandler = editMovieHandler.bind(null, currMovieData,ctx)
     ctx.renderMiddleware(renderPage(ctx))
 };
 
-const addMovieHandler = async(currMovieData, event) => {
+
+
+const editMovieHandler = async (currMovieData,ctx, event) => {
     event.preventDefault();
     let formData = new FormData(event.currentTarget.parentElement);
-    let {title,description,imageUrl} = Object.fromEntries(formData)
-    let currUserId = getUserId()
-    console.log(currUserId);
-    console.log(currMovieData._ownerId);
-    // TODO: if current id isnt the same as movie id user should not see the delete and edit button
-    if(currUserId === currMovieData._ownerId) {
-       let response = await updateMovie({title,description,imageUrl},url,currMovieData);
-       page.redirect('/')
-    } else {
-        alert('You are not the owner of this movie!')
-    }
 
-    // ctx,currMovieData
+    let { title, description, imageUrl } = Object.fromEntries(formData)
+    let response = await updateMovie({ title, description, imageUrl }, url, currMovieData);
+
+    ctx.page.redirect('/')
 }
