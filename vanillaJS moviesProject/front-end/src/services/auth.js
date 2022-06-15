@@ -16,3 +16,8 @@ export const getToken = () => {
 export const removeUserData = () => {
     localStorage.clear();
 }
+
+export const getUserId = () => {
+  let _id =  localStorage.getItem("_id")
+  return _id;
+}

@@ -12,7 +12,7 @@ const renderPage = (movie) => html`
                 <h3 class="my-3 ">Movie Description</h3>
                 <p>${movie.description}</p>
                 <a class="btn btn-danger" href="#">Delete</a>
-                <a class="btn btn-warning" href="/edit/432423">Edit</a>
+                <a class="btn btn-warning" href="/edit/${movie._id}">Edit</a>
                 <a class="btn btn-primary" href="#">Like</a>
                 <span class="enrolled-span">Liked 1</span>
             </div>
@@ -20,7 +20,7 @@ const renderPage = (movie) => html`
     </div>
 </section>
 `;
-let url = `/data/movies/`
+let url = `/data/movies/`;
 
 export const detailsView = async (ctx) => {
     let response = await getMovies(url, ctx.params.movieId)
@@ -30,4 +30,4 @@ export const detailsView = async (ctx) => {
         ctx.movie = response
         ctx.renderMiddleware(renderPage(ctx.movie))
     }
-}
+};

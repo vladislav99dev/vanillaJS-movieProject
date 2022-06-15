@@ -18,3 +18,19 @@ export const getMovies = async (url, movieId) => {
     return jsonResponse;
 };
 
+export const updateMovie = async({title,description,imageUrl},url,currMovieData) => {
+    let response = await fetch(`${baseUrl}${url}${currMovieData._id}`, {
+        method: "PUT",
+        headers: {
+            'content-type':'application/json',
+            'X-Authorization': getToken()
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            img: imageUrl
+        })
+    })
+    let jsonResponse = await response.json();
+    return jsonResponse;
+}
