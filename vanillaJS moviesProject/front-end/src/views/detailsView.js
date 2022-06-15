@@ -1,18 +1,16 @@
-import {html} from "../../node_modules/lit-html/lit-html.js"
-const renderPage = () => html`
- <section id="movie-example">
+import { html } from "../../node_modules/lit-html/lit-html.js"
+import { getMovies } from "../services/moviesApi.js";
+const renderPage = (movie) => html`
+<section id="movie-example">
     <div class="container">
         <div class="row bg-light text-dark">
-            <h1>Movie title: Black Widow</h1>
-
+            <h1>${movie.title}</h1>
             <div class="col-md-8">
-                <img class="img-thumbnail" src="https://miro.medium.com/max/735/1*akkAa2CcbKqHsvqVusF3-w.jpeg"
-                     alt="Movie">
+                <img class="img-thumbnail" src="${movie.img}" alt="Movie">
             </div>
             <div class="col-md-4 text-center">
                 <h3 class="my-3 ">Movie Description</h3>
-                <p>Natasha Romanoff aka Black Widow confronts the darker parts of her ledger when a dangerous conspiracy
-                    with ties to her past arises. Comes on the screens 2020.</p>
+                <p>${movie.description}</p>
                 <a class="btn btn-danger" href="#">Delete</a>
                 <a class="btn btn-warning" href="/edit/432423">Edit</a>
                 <a class="btn btn-primary" href="#">Like</a>
@@ -20,9 +18,16 @@ const renderPage = () => html`
             </div>
         </div>
     </div>
-    </section>
+</section>
 `;
+let url = `/data/movies/`
 
-export const detailsView = (ctx) => {
-    ctx.renderMiddleware(renderPage())
+export const detailsView = async (ctx) => {
+    let response = await getMovies(url, ctx.params.movieId)
+    if (response.message) {
+        alert(`You should be logged in to see this page`)
+    } else {
+        ctx.movie = response
+        ctx.renderMiddleware(renderPage(ctx.movie))
+    }
 }

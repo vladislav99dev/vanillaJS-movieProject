@@ -13,7 +13,7 @@ export const formSubmitHandler = (ctx, event) => {
     if (typeof response === 'string') {
         alert(response)
     } else if (typeof response === 'object') {
-        let data = manageSendData(formType,response)
+        let data = manageSendData(formType, response)
         sendUserData(data).then(res => {
             if (res.message) {
                 alert(res.message)
@@ -48,7 +48,6 @@ const formDataValidator = (formType, email, password, repeatPassword) => {
             return 'You  should fill all inputs.'
         }
     } else if (formType === 'login') {
-        console.log('login');
         if (email && password) {
             return { email, password }
         } else {

@@ -3,7 +3,7 @@ export const isUserLoggedIn = () => {
     return email;
 }
 
-export const saveUserData = (email,username,_id,accessToken) => {
+export const saveUserData = (email, username, _id, accessToken) => {
     localStorage.setItem("email", email)
     localStorage.setItem("username", username)
     localStorage.setItem("_id", _id)

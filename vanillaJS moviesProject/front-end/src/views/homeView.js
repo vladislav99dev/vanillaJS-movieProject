@@ -30,16 +30,7 @@ ${isUserLoggedIn()
     </div>
 </section>
 `;
-let url = '/data/movies'
-
-export const homeView = async (ctx) => {
-    ctx.movies = await getMovies(url)
-    ctx.renderMovieCard = renderMovieCard;
-
-    ctx.renderMiddleware(renderPage(ctx))
-}
-
-
+let url = '/data/movies';
 
 const renderMovieCard = (movie) => {
     return html`
@@ -55,7 +46,17 @@ const renderMovieCard = (movie) => {
                     </div>
                 </div>
     `;
-}
+};
+
+export const homeView = async (ctx) => {
+    let response = await getMovies(url)
+    if (response.message) {
+        alert(`You should be logged in to see this page`)
+    } else {
+        ctx.movies = response
+        ctx.renderMiddleware(renderPage(ctx))
+    }
+};
 
 
 

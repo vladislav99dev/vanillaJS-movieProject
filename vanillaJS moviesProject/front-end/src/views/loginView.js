@@ -1,5 +1,5 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
-import { formSubmitHandler} from "../services/formUserData.js"
+import { formSubmitHandler } from "../services/formUserData.js"
 
 const renderPage = (ctx) => html`
   <section id="form-login">
